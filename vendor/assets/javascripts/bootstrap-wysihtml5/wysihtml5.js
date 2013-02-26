@@ -5051,24 +5051,14 @@ wysihtml5.dom.parse = (function() {
   // ------------ attribute checks ------------ \\
   var attributeCheckMethods = {
     url: (function() {
-      // var REG_EXP = /^https?:\/\//i;
+      var REG_EXP = /^https?:\/\//i;
       return function(attributeValue) {
-        // if (!attributeValue || !attributeValue.match(REG_EXP)) {
-        //   return null;
-        // }
-        if (!attributeValue) {
-            return "";
+        if (!attributeValue || !attributeValue.match(REG_EXP)) {
+          return null;
         }
-        // return attributeValue.replace(REG_EXP, function(match) {
-        //   return match.toLowerCase();
-        // });
-        var parser = document.createElement('img');
-        parser.src = attributeValue;
-
-        if (   parser.protocol == 'http:'
-            || parser.protocol == 'https:'
-            || parser.protocol == 'ftp:'
-        ) return attributeValue;
+        return attributeValue.replace(REG_EXP, function(match) {
+          return match.toLowerCase();
+        });
       };
     })(),
     
